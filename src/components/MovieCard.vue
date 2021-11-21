@@ -15,10 +15,28 @@ export default {
   props: {
     movie: Object
   },
+  // 끼워맞춘거같으니까 한 번 더 보기...
+  created: function() {
+    const token = localStorage.getItem('jwt')
+    if (token) {
+      this.$store.state.isLogin = true
+    } else {
+      this.$store.state.isLogin = false
+    }
+  },
   methods: {
+    // setToken: function() {
+    //   const token = localStorage.getItem('jwt')
+    //   const config = {
+    //     Authorization: `JWT ${token}`
+    //   }
+    //   return config
+    // },
+
     getDetail() {
       if (!this.$store.state.isLogin) {
         this.$router.push({ name: 'Login' })
+        // console.log(this.$store.state.isLogin)
       } else {
         // this.$store.dispatch('Test')
         this.$store.dispatch('LoadDetail', this.movie.id)
@@ -30,13 +48,14 @@ export default {
     posterPath() {
       return `https://image.tmdb.org/t/p/w500/${this.movie.poster_path}`
     }
-  }
+  },
+
 }
 </script>
 
 <style>
   .card {
-    background-color:rgb(26, 25, 32)
+    background-color: #1A1D29
   }
   .crop-text-2 {
     -webkit-line-clamp: 2;

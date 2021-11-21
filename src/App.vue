@@ -40,8 +40,8 @@ export default {
   },
   methods: {
     logout: function () {
-      localStorage.removeItem('jwt')
       this.isLogin = false
+      localStorage.removeItem('jwt')
       this.$router.push({ name: "Login" })
     },
   },
@@ -56,32 +56,33 @@ export default {
       return this.$store.state.isLogin
     }
   },
-  watch: {
-    loginCheck: function() {
-      if (this.$store.state.isLogin) {
-        this.isLogin = true
-      }
-    }
-  }
+  // watch: {
+  //   loginCheck: function() {
+  //     if (this.$store.state.isLogin) {
+  //       this.isLogin = true
+  //     }
+  //   }
+  // }
 
 }
 </script>
 
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: wheat;
 }
 
 nav {
   padding: 10px;
   font-size: 18px;
   font-weight: 900;
-  background-color: #212529;
+  background-color: #1A1D29;
 } 
 
 .nav-item{

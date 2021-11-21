@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid bg-dark">
+  <div class="container-fluid">
     <h1>최신 영화</h1>
     
     <h1>영화 리스트</h1>
@@ -34,3 +34,9 @@ export default {
 
 }
 </script>
+
+<style>
+body {
+  background-color: #1A1D29;
+}
+</style>
