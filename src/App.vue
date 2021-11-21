@@ -13,7 +13,10 @@
     <router-view/> -->
     <nav class="navbar navbar-expand-lg navbar-dark">  
       <div class="container-fluid">
-        <router-link :to="{name: 'Home'}" class="nav-item">Home</router-link>
+        <span>
+          <router-link :to="{name: 'Home'}" class="nav-item">Home</router-link>
+          <router-link :to="{ name: 'Community' }">Community</router-link>
+        </span>
         <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button> -->
@@ -46,7 +49,6 @@ export default {
   name: 'App',
   data: function() {
     return {
-      isLogin: false,
     }
   },
   methods: {
@@ -57,15 +59,15 @@ export default {
     },
   },
   created: function() {
-    const token = localStorage.getItem('jwt')
-    if (token) {
-      this.isLogin = true
-    }
+    // const token = localStorage.getItem('jwt')
+    // if (token) {
+    //   this.isLogin = true
+    // }
   },
   computed: {
-    loginStatus: function() {
-      return this.$store.state.isLogin
-    }
+    // loginStatus: function() {
+    //   return this.$store.state.isLogin
+    // }
   },
   // watch: {
   //   loginCheck: function() {

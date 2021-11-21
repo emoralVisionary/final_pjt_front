@@ -16,14 +16,14 @@ export default {
     movie: Object
   },
   // 끼워맞춘거같으니까 한 번 더 보기...
-  created: function() {
-    const token = localStorage.getItem('jwt')
-    if (token) {
-      this.$store.state.isLogin = true
-    } else {
-      this.$store.state.isLogin = false
-    }
-  },
+  // created: function() {
+  //   const token = localStorage.getItem('jwt')
+  //   if (token) {
+  //     this.$store.state.isLogin = true
+  //   } else {
+  //     this.$store.state.isLogin = false
+  //   }
+  // },
   methods: {
     // setToken: function() {
     //   const token = localStorage.getItem('jwt')
