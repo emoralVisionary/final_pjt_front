@@ -44,5 +44,6 @@ export default {
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    color: wheat;
   }
 </style>

@@ -1,23 +1,29 @@
 <template>
-  <div>
-    <h1>Login</h1>
-    <div>
-      <label for="username">사용자 이름: </label>
-      <input 
-        type="text" 
-        id="username"
-        v-model="credentials.username"
-      >
-    </div>
-    <div>
-      <label for="password">비밀번호: </label>
-      <input 
-        type="password" 
-        id="password"
-        v-model="credentials.password"
-      >
-    </div>
-    <button @click="login">로그인</button>
+  <div class="container-fluid">
+    <div class="login">
+      <div class="login-box mt-5">
+        <h1 id="login">LogIn</h1>
+        <div class="username mt-3">
+          <input
+            type="text" 
+            id="username"
+            v-model="credentials.username"
+            placeholder="아이디"
+          >
+        </div>
+        <div class="password mt-3">
+          <input 
+            type="password" 
+            id="password"
+            v-model="credentials.password"
+            placeholder="비밀번호"
+            @keyup.enter="login"
+          >
+        </div>
+        <button class="btn loginBtn" @click="login">로그인</button>
+        <h4 class="signup mt-3" @click="$router.push({ name: 'Signup'})">회원가입</h4>
+      </div>
+    </div>     
   </div>
 </template>
 
@@ -31,7 +37,9 @@ export default {
       credentials: {
         username: null,
         password: null,
-      }
+      },
+      screenWidth: parseInt(screen.availWidth)+"px",
+
     }
   },
   methods: {
@@ -42,9 +50,8 @@ export default {
         data: this.credentials,
       })
         .then(res => {
-          console.log(res)
           localStorage.setItem('jwt', res.data.token)
-          this.$store.commit('LOGIN')
+          this.$emit('login')
           this.$router.push({ name: 'Home' })
         })
         .catch(err => {
@@ -54,3 +61,46 @@ export default {
   }
 }
 </script>
+
+<style>
+body {
+  background-color: #1A1D29;
+}
+
+
+.login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  width: 300px;
+  background-color: #1A1D29;
+  padding: 40px;
+  padding-bottom: 25px;
+}
+
+.loginBtn {
+  margin-top: 30px;
+  /* border: none; */
+  cursor: pointer;
+  width: 60%;
+  transition: 0.5s;
+  color: white;
+  font-size: 18px;
+  background-color: #068DFF;
+}
+
+.signup {
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#login {
+  color: wheat;
+}
+
+</style>

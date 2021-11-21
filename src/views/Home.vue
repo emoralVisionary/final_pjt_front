@@ -28,5 +28,9 @@ export default {
   computed: {
     ...mapState(['movies']),
   },
+  methods: {
+
+  },
+
 }
 </script>

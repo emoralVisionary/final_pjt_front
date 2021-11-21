@@ -1,15 +1,72 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <span>
-        <router-link :to="{ name: 'Signup' }">Signup</router-link> |
-        <router-link :to="{ name: 'Login' }">Login</router-link> 
-      </span>
-    </div>
-    <router-view/>
+    <nav class="navbar navbar-expand-lg navbar-dark">  
+      <div class="container-fluid">
+        <router-link :to="{name: 'Home'}" class="nav-item">Home</router-link>
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <!-- <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown"> -->
+          <ul class="navbar-nav">
+            <!-- isLogin -->
+            <span v-if="isLogin">
+              <li class="nav-item">
+                <router-link @click.native="logout" to="#" class="nav-item">logout</router-link>
+              </li>
+            </span>
+            <span class="nav-item" v-else>
+              <li class="nav-item">
+                <router-link :to="{name: 'Login'}" class="nav-item">Login</router-link>
+              </li>
+              <!-- <li class="nav-item"> -->
+                <!-- <router-link :to="{name: 'Signup'}" class="nav-item">Signup</router-link> -->
+              <!-- </li> -->
+            </span>
+          </ul>
+        <!-- </div> -->
+      </div>
+    </nav>
+    <router-view @login="isLogin=true"/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data: function() {
+    return {
+      isLogin: false,
+    }
+  },
+  methods: {
+    logout: function () {
+      localStorage.removeItem('jwt')
+      this.isLogin = false
+      this.$router.push({ name: "Login" })
+    },
+  },
+  created: function() {
+    const token = localStorage.getItem('jwt')
+    if (token) {
+      this.isLogin = true
+    }
+  },
+  computed: {
+    loginStatus: function() {
+      return this.$store.state.isLogin
+    }
+  },
+  watch: {
+    loginCheck: function() {
+      if (this.$store.state.isLogin) {
+        this.isLogin = true
+      }
+    }
+  }
+
+}
+</script>
+
 
 <style>
 #app {
@@ -20,10 +77,19 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+nav {
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 900;
+  background-color: #212529;
+} 
+
+.nav-item{
+  text-align:center;
+  padding: 5px;
 }
 
+/*
 #nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -31,5 +97,5 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 </style>
