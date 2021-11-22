@@ -31,7 +31,7 @@
             <router-link 
               :to="{ 
                 name: 'PostDetail', 
-                params: { postId: post.id },
+                params: { postId: post.id, post: post, postDate: postDate[`${post.id}`] },
               }"
               class="text-reset"
             >

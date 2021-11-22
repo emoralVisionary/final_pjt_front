@@ -48,7 +48,8 @@ const routes = [
   {
     path: '/community/:postId',
     name: 'PostDetail',
-    component: PostDetail
+    component: PostDetail,
+    props: true
   },
   {
     path: '/accounts/signup',
