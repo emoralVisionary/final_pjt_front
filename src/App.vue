@@ -53,8 +53,8 @@ export default {
   },
   methods: {
     logout: function () {
-      // commit / dispatch => logout
       localStorage.removeItem('jwt')
+      this.$store.commit('LOGOUT')
       this.$router.push({ name: "Home" })
     },
   },

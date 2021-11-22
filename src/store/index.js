@@ -31,6 +31,10 @@ export default new Vuex.Store({
       state.userName = username
       state.isLogin = true
     },
+    LOGOUT(state) {
+      state.userName = ''
+      state.isLogin = false
+    }
   },
   actions: {
     SetToken({ commit }) {
