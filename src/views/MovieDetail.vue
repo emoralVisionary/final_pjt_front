@@ -74,7 +74,7 @@
                         class="text-reset"
                         :to="{ 
                           name: 'ReviewDetail', 
-                          params: { movieID: movieData.id, reviewId: review.id, review: review },        
+                          params: { movieID: movieData.id, reviewId: review.id, review: review, genres: genres },        
                           }"
                         >
                         {{ review.title }}
@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     getReviewForm() {
-      this.$router.push({ name: 'MovieReview', params: { movieId: this.movieData.id} })
+      this.$router.push({ name: 'MovieReview', params: { movieId: this.movieData.id, genres: this.genres }})
     },
   },
   computed: {

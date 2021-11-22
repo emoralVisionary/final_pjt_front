@@ -1,34 +1,55 @@
 <template>
-  <div>
-    <h1>Movie Review</h1>
-    <h2>{{ movieData.title }} 리뷰 작성</h2>
-    <div>
-      <label for="title">제목: </label>
-      <input 
-        type="text" 
-        id="title"
-        v-model="reviewForm.title"
-      >
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+        <img :src="posterPath" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <div>
+          <span class="fs-2">{{ movieData.title }}</span>
+          <small class="ms-3">({{ movieData.original_title }}, {{ movieData.release_date }})</small>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-around">
+          <span>
+            <strong>장르</strong>
+            {{ genres }}
+          </span>
+          <span>
+            <strong>평점</strong>
+            {{ movieData.vote_average }}
+          </span>
+          <span>
+            <strong>누적관객</strong>
+            {{ movieData.popularity }}
+          </span>
+        </div>
+        <hr>
+        <h2 class="text-start">영화 리뷰 작성</h2>
+        <div>
+          <form class="form-floating">
+            <input type="text" class="form-control" id="title" style="height: 30px" v-model="reviewForm.title">
+            <label for="title" style="color: black" v-show="!reviewForm.title">리뷰 제목</label>
+          </form>
+        </div>
+        <div class="form-floating my-2">
+          <textarea class="form-control" placeholder="리뷰를 작성하세요." id="content" style="height: 100px" v-model="reviewForm.content"></textarea>
+          <label for="content" style="color: black">리뷰 작성</label>
+        </div>
+        <div class="d-flex justify-content-start">
+          <input 
+            type="number" 
+            id="rank"
+            class="rounded-pill"
+            placeholder="평점"
+            v-model.number="reviewForm.rank"
+          >
+          <button class="mx-3 btn btn-primary" @click="index !== undefined ? updateReview() : createReview()">
+            {{index !== undefined ? '리뷰 수정' : '리뷰 작성'}}
+          </button>
+        </div>
+      </div> 
     </div>
-    <div>
-      <label for="content">내용: </label>
-      <input 
-        type="text" 
-        id="content"
-        v-model="reviewForm.content"
-      >
-    </div>
-    <div>
-      <label for="rank">평점: </label>
-      <input 
-        type="number" 
-        id="rank"
-        v-model.number="reviewForm.rank"
-      >
-    </div>
-    <button @click="index !== undefined ? updateReview() : createReview()">
-      {{index !== undefined ? '수정' : '작성'}}
-    </button>
   </div>
 </template>
 
@@ -39,7 +60,8 @@ import axios from 'axios'
 export default {
   name: 'MovieReview',
   props: {
-    review: Object
+    review: Object,
+    genres: String,
   },
   data: function() {
     const index = this.$route.params.reviewId;
@@ -87,6 +109,9 @@ export default {
   },
   computed: {
     ...mapState(['movieData', 'token']),
+    posterPath() {
+      return `https://image.tmdb.org/t/p/w500/${this.movieData.poster_path}`
+    },
   }
 }
 </script>

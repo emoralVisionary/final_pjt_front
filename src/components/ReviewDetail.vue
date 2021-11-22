@@ -70,7 +70,8 @@ export default {
     }
   },
   props: {
-    review: Object
+    review: Object,
+    genres: String,
   },
   methods: {
     updateReview() {
@@ -79,7 +80,8 @@ export default {
         params: {
           movieId: this.movieData.id,
           reviewId: this.review.id,
-          review: this.review
+          review: this.review,
+          genres: this.genres,
         }
       })
     },
