@@ -1,14 +1,47 @@
 <template>
-  <div>
-    <h1>{{ review.title }}</h1>
-    <button v-if="review.userName === userName" @click="updateReview">리뷰 수정</button>
-    <button v-if="review.userName === userName" @click="deleteReview">리뷰 삭제</button>
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <span>
+        <span class="fs-2 ms-3">{{ movieData.title }}</span>
+        <small class="ms-3">({{ movieData.original_title }}, {{ movieData.release_date }})</small>
+      </span>
+      <span class="align-middle">
+        <button class="mx-2 btn btn-secondary" v-if="review.userName === userName" @click="updateReview">리뷰 수정</button>
+        <button class="btn btn-danger" v-if="review.userName === userName" @click="deleteReview">리뷰 삭제</button>
+      </span>
+    </div>
     <hr>
-    {{ review }}
-    <hr>
+    <div class="row d-flex justify-content-center">
+      <div class="col-11">
+        <span class="d-flex justify-content-between">
+          <span class="fs-3 fw-bold">{{ review.title }}</span>
+          <span>
+            <span>
+              작성자:
+              {{ review.userName }}
+            </span>|
+            <span>
+              게시일: 
+              {{ this.reviewCreatedTime }}
+            </span>|
+            <span>
+              리뷰 번호:
+              {{ review.id }}
+            </span>
+          </span>
+        </span>
+        <div class="card mt-3">
+          <div class="card-body text-start">
+            {{ review.content }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 댓글 목록 + 댓글 작성란 -->
     <div class="container mt-5 mb-5">
       <div class="row height d-flex justify-content-center align-items-center">
-        <div class="col-md-9">
+        <div class="col-10">
           <div class="card">
             <div class="align-middle fs-3">
               Comments
@@ -119,12 +152,7 @@ export default {
       headers: this.token,
       data: this.commentForm
       })
-        .then(res => {
-          this.loadComments()
-          // const selected_date = new Date(res.data.updated_at)
-          console.log(moment(res.data.updated_at).fromNow())
-          // console.log(selected_date)
-        })
+        .then(() => this.loadComments())
     },
     getTimestamp(time) {
       return moment(time).fromNow()
@@ -148,6 +176,9 @@ export default {
   },
   computed: {
     ...mapState(['movieData', 'userName', 'token']),
+    reviewCreatedTime() {
+      return moment(this.review.created_at).format('YYYY.MM.DD, hh:mm a')
+    }
   }
 }
 </script>
