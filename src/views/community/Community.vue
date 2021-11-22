@@ -67,18 +67,25 @@ export default {
   },
   created() {
     this.$store.dispatch('LoadPosts')
+    this.posts.forEach(element => {
+      this.postDate[`${element.id}`] = moment(element.created_at).format('YYYY-MM-DD, hh:mm a')
+    })
+    // this.posts.forEach(element => {
+    //   console.log(element.id, element.created_at)
+    //   Object.defineProperty(this.postDate, element.id, { 
+    //     value: moment(element.created_at).format('YYYY-MM-DD, hh:mm a'), 
+    //     writable: false
+    //   })
+    // })
   },
   computed: {
     ...mapState(['posts', 'token']),
   },
   watch: {
-    getPostDate() {
-      this.posts.forEach(element => {
+    posts(newPosts) {
+      newPosts.forEach(element => {
         if (!Object.keys(this.postDate).includes(element.id)) {
-          Object.defineProperty(this.postDate, element.id, { 
-            value: moment(element.created_at).format('YYYY-MM-DD, hh:mm a'), 
-            writable: false 
-          })
+          this.postDate[`${element.id}`] = moment(element.created_at).format('YYYY-MM-DD, hh:mm a')
         }
       });
     }
