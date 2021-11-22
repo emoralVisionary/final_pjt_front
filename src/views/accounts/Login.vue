@@ -24,7 +24,6 @@
         <h4 class="signup mt-3" @click="$router.push({ name: 'Signup'})">회원가입</h4>
       </div>
     </div>     
->>>>>>> 0ebae2f79ce477037b2d08443580e060525710a5
   </div>
 </template>
 

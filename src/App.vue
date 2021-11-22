@@ -53,9 +53,9 @@ export default {
   },
   methods: {
     logout: function () {
-      this.isLogin = false
+      // commit / dispatch => logout
       localStorage.removeItem('jwt')
-      this.$router.push({ name: "Login" })
+      this.$router.push({ name: "Home" })
     },
   },
   created: function() {

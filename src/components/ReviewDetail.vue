@@ -4,7 +4,29 @@
     <button v-if="review.userName === userName" @click="deleteReview">리뷰 삭제</button>
     {{ review }}
     <hr>
-    {{ comments }}
+    <div v-for="comment in comments" :key="comment.id">
+      {{ comment }}
+      <button 
+        class="btn btn-danger"
+        v-if="comment.userName === userName"
+        @click="deleteComment(comment.id)"
+      >삭제</button>
+    </div>
+    <div>
+      <label for="content">댓글 작성</label>
+      <input 
+        type="text" 
+        id="content"
+        v-model="commentForm.content"
+      >
+      <label for="rank">나의 평점</label>
+      <input 
+        type="number" 
+        id="rank"
+        v-model.number="commentForm.rank"
+      >
+      <button @click="createComment">작성</button>
+    </div>
   </div>
 </template>
 
@@ -16,6 +38,10 @@ export default {
   name: 'ReviewDetail',
   data: function() {
     return {
+      commentForm: {
+        content: '',
+        rank: 0,
+      },
       comments: [],
     }
   },
@@ -54,6 +80,31 @@ export default {
       headers: this.token,
       })
         .then(res => this.comments = res.data)
+    },
+    createComment() {
+      axios({
+      method: 'post',
+      url: `http://127.0.0.1:8000/movies/${this.review.id}/comments/`,
+      headers: this.token,
+      data: this.commentForm
+      })
+        .then(() => {
+          this.loadComments()
+          
+        })
+    },
+    deleteComment(commentId) {
+      if (confirm('댓글을 삭제하시겠습니다?')) {
+        axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/movies/${this.review.id}/delete/${commentId}/`,
+        headers: this.token,
+        data: this.commentForm
+        })
+          .then(() => {
+            this.loadComments()          
+          })
+      }
     }
   },
   created() {
