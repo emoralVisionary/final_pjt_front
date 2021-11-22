@@ -52,7 +52,7 @@ Temporary Items
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
-node_modules/
+node_modules/.cache/
 dist/
 npm-debug.log
 yarn-error.log
