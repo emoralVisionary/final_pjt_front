@@ -53,7 +53,7 @@ Temporary Items
 # Recommended template: Node.gitignore
 
 node_modules/.cache/
-dist/
+# dist/
 npm-debug.log
 yarn-error.log
 
