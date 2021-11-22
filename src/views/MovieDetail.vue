@@ -11,26 +11,48 @@
       </div> 
     </div>
     <div>
-      <span>리뷰 목록</span>
-      <button
-        @click="getReviewForm"
-      >
-        리뷰 작성
-      </button>
-      <div class="list-group">
-        <div 
-          class="list-group-item list-group-item-action"
-          v-for="review in reviews" 
-          :key="review.id" 
-        >
-          <router-link :to="{ 
-            name: 'ReviewDetail', 
-            params: { movieID: movieData.id, reviewId: review.id, review: review },        
-            }">
-            {{ review.userName }} | {{ review.title }}
-          </router-link>
+      <div class="row justify-content-between my-2">
+        <div class="col-2 fs-3">리뷰 목록</div>
+        <div class="col-2">
+          <button
+            class="btn btn-light btn-sm"
+            @click="getReviewForm"
+          >
+            리뷰 작성
+          </button>        
         </div>
       </div>
+      <table class="table table-dark table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">작성자</th>
+            <th scope="col">제목</th>
+            <th scope="col">평점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="review in reviews" 
+            :key="review.id" 
+          >
+            <th scope="row">{{ review.id }}</th>
+            <td>{{ review.userName }}</td>
+            <td>
+              <router-link 
+                class="text-reset"
+                :to="{ 
+                  name: 'ReviewDetail', 
+                  params: { movieID: movieData.id, reviewId: review.id, review: review },        
+                  }"
+                >
+                {{ review.title }}
+              </router-link>
+            </td>
+            <td>{{ review.rank }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -58,5 +80,7 @@ export default {
 </script>
 
 <style>
-
+ /* .table {
+   color: antiquewhite;
+ } */
 </style>
