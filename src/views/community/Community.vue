@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <button @click="getPostForm">글쓰기</button>
-    <p v-for="post in this.posts" :key=post.id>
-      <router-link :to="{ 
-        name: 'PostDetail', 
-        params: { postId: post.id },
-        }">
-        {{ post.id }} | {{ post.title }} 
-      </router-link>
-    </p>
+  <div class="container">
+    <h1>Community</h1>
+    <div class="row">
+      <button @click="getPostForm">글쓰기</button>
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p v-for="post in this.posts" :key=post.id>
+          <router-link :to="{ 
+            name: 'PostDetail', 
+            params: { postId: post.id },
+            }">
+            {{ post.id }}번 글
+            {{ post.title }}
+          </router-link>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 

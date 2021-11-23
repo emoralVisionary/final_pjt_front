@@ -16,7 +16,12 @@
         <span>
           <router-link :to="{name: 'Home'}" class="nav-item">Home</router-link>
           <router-link :to="{ name: 'Community' }">Community</router-link>
+          <div class="form-inline my-2 my-lg-0">
+            <input v-model="keyword" id="keyword" @keypress.enter="searchKeyword(keyword)" class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button @click="searchKeyword(keyword)" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+          </div>
         </span>
+        
         <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button> -->
@@ -45,10 +50,14 @@
 </template>
 
 <script>
+// import vuex from "vuex";
+// import router from "@/router";
+
 export default {
   name: 'App',
   data: function() {
     return {
+      keyword: null,
     }
   },
   methods: {
@@ -57,6 +66,9 @@ export default {
       this.$store.commit('LOGOUT')
       this.$router.push({ name: "Home" })
     },
+    searchKeyword(keyword) {
+      this.$router.push(`/search/${keyword}`)
+    }
   },
   created: function() {
     // const token = localStorage.getItem('jwt')

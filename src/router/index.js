@@ -9,63 +9,77 @@ import PostDetail from '../views/community/PostDetail.vue'
 import ReviewDetail from '@/components/ReviewDetail.vue'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
+import SearchMovies from '@/views/SearchMovies.vue'
+import Recommend from "@/views/Recommend";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/:movieId',
-    name: 'MovieDetail',
-    component: MovieDetail
+    path: "/:movieId",
+    name: "MovieDetail",
+    component: MovieDetail,
   },
   {
-    path: '/:movieId/review/:reviewId?',
-    name: 'MovieReview',
+    path: "/:movieId/review/:reviewId?",
+    name: "MovieReview",
     component: MovieReview,
-    props: true
+    props: true,
   },
   {
-    path: '/:movieId/review/:reviewId',
-    name: 'ReviewDetail',
+    path: "/:movieId/review/:reviewId",
+    name: "ReviewDetail",
     component: ReviewDetail,
-    props: true
+    props: true,
   },
   {
-    path: '/community',
-    name: 'Community',
-    component: Community
+    path: "/community",
+    name: "Community",
+    component: Community,
   },
   {
-    path: '/community/post/:postId?',
-    name: 'Post',
-    component: Post
+    path: "/community/post/:postId?",
+    name: "Post",
+    component: Post,
   },
   {
-    path: '/community/:postId',
-    name: 'PostDetail',
-    component: PostDetail
+    path: "/community/:postId",
+    name: "PostDetail",
+    component: PostDetail,
   },
   {
-    path: '/accounts/signup',
-    name: 'Signup',
+    path: "/accounts/signup",
+    name: "Signup",
     component: Signup,
   },
   {
-    path: '/accounts/login',
-    name: 'Login',
+    path: "/accounts/login",
+    name: "Login",
     component: Login,
   },
-]
+  {
+    path: "search/:keyword",
+    name: "searchMovies",
+    component: SearchMovies,
+  },
+  {
+    path: "/recommend",
+    name: "Recommend",
+    component: Recommend,
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router
