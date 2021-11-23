@@ -31,58 +31,61 @@
           </span>
         </span>
         <div class="card mt-3">
-          <div class="card-body text-start">
+          <div class="card-body text-start review-content">
             {{ review.content }}
           </div>
         </div>
+        <hr>
+        <div class="card">
+          <div class="align-middle fs-3">
+            Comments
+          </div>
+          <hr>
+          <div v-for="comment in comments" :key="comment.id">
+            <div class="d-flex flex-row p-3"> 
+              <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40" class="rounded-circle mr-3">
+              <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex flex-row align-items-center"> 
+                    <span class="mx-2 fs-5">{{ comment.userName }}</span> 
+                    <button 
+                      class="btn btn-danger btn-sm"
+                      v-if="comment.userName === userName"
+                      @click="deleteComment(comment.id)"
+                    >삭제
+                    </button>
+                  </div> 
+                  <small>{{ comment.timeStamp }}</small>
+                </div>
+                <p class="text-justify comment-text mb-0 ms-3 fs-6 mt-4">
+                  {{ comment.content }}
+                </p>
+                <hr>
+                <!-- <div class="d-flex flex-row user-feed"> <span class="wish"><i class="fa fa-heartbeat mr-2"></i>24</span> <span class="ml-3"><i class="fa fa-comments-o mr-2"></i>Reply</span> </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 d-flex flex-row align-items-center p-3 form-color"> 
+            <img src="https://i.imgur.com/zQZSWrt.jpg" width="50" class="rounded-circle me-2"> 
+            <!-- <small><input type="number" class="form-control" v-model.number="commentForm.rank"></small> -->
+            <input type="text" class="form-control" placeholder="Enter your comment..." v-model="commentForm.content" @keyup.enter="createComment">
+            <button class="btn btn-primary ms-2" @click="createComment">
+              <i class="bi bi-arrow-return-left" style="font-size: 1.5rem;"></i>
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- 댓글 목록 + 댓글 작성란 -->
-    <div class="container mt-5 mb-5">
+    <!-- <div class="container mt-5 mb-5">
       <div class="row height d-flex justify-content-center align-items-center">
         <div class="col-10">
-          <div class="card">
-            <div class="align-middle fs-3">
-              Comments
-            </div>
-            <hr>
-            <div v-for="comment in comments" :key="comment.id">
-              <div class="d-flex flex-row p-3"> 
-                <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40" class="rounded-circle mr-3">
-                <div class="w-100">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex flex-row align-items-center"> 
-                      <span class="mx-2 fs-4">{{ comment.userName }}</span> 
-                      <button 
-                        class="btn btn-danger btn-sm"
-                        v-if="comment.userName === userName"
-                        @click="deleteComment(comment.id)"
-                      >삭제
-                      </button>
-                    </div> 
-                    <small>{{ comment.timeStamp }}</small>
-                  </div>
-                  <p class="text-justify comment-text mb-0 ms-3 fs-6">
-                    {{ comment.content }}
-                  </p>
-                  <hr>
-                  <!-- <div class="d-flex flex-row user-feed"> <span class="wish"><i class="fa fa-heartbeat mr-2"></i>24</span> <span class="ml-3"><i class="fa fa-comments-o mr-2"></i>Reply</span> </div> -->
-                </div>
-              </div>
-            </div>
-            <div class="mt-3 d-flex flex-row align-items-center p-3 form-color"> 
-              <img src="https://i.imgur.com/zQZSWrt.jpg" width="50" class="rounded-circle me-2"> 
-              <small><input type="number" class="form-control" v-model.number="commentForm.rank"></small>
-              <input type="text" class="form-control" placeholder="Enter your comment..." v-model="commentForm.content">
-              <button class="btn btn-primary ms-2" @click="createComment">
-                <i class="bi bi-arrow-return-left" style="font-size: 1.5rem;"></i>
-              </button>
-            </div>
-          </div>
+          
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -152,13 +155,16 @@ export default {
       headers: this.token,
       data: this.commentForm
       })
-        .then(() => this.loadComments())
+        .then(() => {
+          this.loadComments(), 
+          this.commentForm.content=''
+        })
     },
     getTimestamp(time) {
       return moment(time).fromNow()
     },
     deleteComment(commentId) {
-      if (confirm('댓글을 삭제하시겠습니다?')) {
+      if (confirm('댓글을 삭제하시겠습니까?')) {
         axios({
         method: 'delete',
         url: `http://127.0.0.1:8000/movies/${this.review.id}/delete/${commentId}/`,
@@ -187,26 +193,32 @@ export default {
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css");
 
   .card {
-      background-color: rgb(148, 144, 137);
-      border: none
+      background-color: #1B1D29;
+      border: none;
+      color: white;
   }
 
   .form-color {
-      background-color: #fafafa
+      background-color: #1B1D29
   }
 
   .form-control {
       height: 48px;
-      border-radius: 25px
+      border-radius: 10px;
+      /* margin: 40px; */
+      /* margin-top: 20px; */
+      justify-content: center;
+      align-items: center;
   }
 
   .form-control:focus {
       color: #495057;
-      background-color: #fff;
+      background-color: #1B1D29;
       border-color: #35b69f;
       outline: 0;
       box-shadow: none;
-      text-indent: 10px
+      /* text-indent: 10px */
+      color: white;
   }
 
   .c-badge {
@@ -222,9 +234,14 @@ export default {
       margin-top: 2px
   }
 
+.review-content {
+  height: 200px;
+}
+
+
   .comment-text {
     font-size: 13px;
-    text-align: start;  
+    text-align: start;
   }
 
   .wish {

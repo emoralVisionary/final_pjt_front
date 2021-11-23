@@ -8,6 +8,7 @@
       v-for="movie in movies"
       :key="movie.id"
       :movie="movie"
+      cursor: pointer 
       >
       </movie-card>
     </div>

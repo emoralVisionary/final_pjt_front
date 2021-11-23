@@ -16,10 +16,10 @@
         <span>
           <router-link :to="{name: 'Home'}" class="nav-item">Home</router-link>
           <router-link :to="{ name: 'Community' }">Community</router-link>
-          <div class="form-inline my-2 my-lg-0">
+          <!-- <div class="form-inline my-2 my-lg-0">
             <input v-model="keyword" id="keyword" @keypress.enter="searchKeyword(keyword)" class="form-control mr-sm-2" type="search" placeholder="Search">
             <button @click="searchKeyword(keyword)" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
-          </div>
+          </div> -->
         </span>
         
         <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

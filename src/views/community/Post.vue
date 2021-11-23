@@ -1,26 +1,36 @@
 <template>
-  <div>
-    <h2>글 작성</h2>
-    <div>
-      <label for="title">제목: </label>
-      <input 
-        type="text" 
-        id="title"
-        v-model="PostForm.title"
-      >
+<div class="container-fluid">
+  <div class="post">
+    <div class="post-box">
+      <h2>게시글 작성</h2>
+      <div>
+        <!-- <label for="title">제목: </label>  -->
+        <input 
+          type="text" 
+          class="form-control"
+          id="title"
+          v-model="PostForm.title"
+          placeholder="제목"
+        >
+      </div>
+      <div>
+        <!-- <label for="content">내용: </label> -->
+        <textarea 
+          type="text" 
+          id="content"
+          class="form-control"
+          style="height: 100px"
+          v-model="PostForm.content"
+          placeholder="내용을 작성하세요"
+        ></textarea>
+      </div>
+      <button class="mx-3 btn btn-primary btn-lg mt-3" @click="index !== undefined ? updatePost() : createPost()">
+        {{index !== undefined ? '수정' : '작성'}}
+      </button>
     </div>
-    <div>
-      <label for="content">내용: </label>
-      <input 
-        type="text" 
-        id="content"
-        v-model="PostForm.content"
-      >
-    </div>
-    <button @click="index !== undefined ? updatePost() : createPost()">
-      {{index !== undefined ? '수정' : '작성'}}
-    </button>
+    
   </div>
+</div>
 </template>
 
 <script>
@@ -80,5 +90,21 @@ export default {
 </script>
 
 <style>
+.post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.post-box {
+  width: 700px;
+  background-color: #1A1D29;
+  padding: 40px;
+  padding-bottom: 25px;
+}
+
+.container-fluid {
+  justify-content: center;
+  align-items: center;
+}
 </style>

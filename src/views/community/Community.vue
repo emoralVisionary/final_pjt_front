@@ -4,7 +4,7 @@
       <div class="col-3 fs-2"><strong>자유 게시판</strong></div>
       <div class="col-2">
         <button
-          class="btn btn-primary btn-sm"
+          class="btn btn-light btn-lg review-btn"
           @click="getPostForm"
         >
           글쓰기

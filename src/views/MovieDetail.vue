@@ -12,17 +12,21 @@
         <hr>
         <div class="d-flex justify-content-around">
           <span>
-            <strong>장르</strong>
+            <strong>장르: </strong>
             {{ genres }}
-          </span>
-          <span>
-            <strong>평점</strong>
-            {{ movieData.vote_average }}
           </span>
           <span>
             <strong>누적관객</strong>
             {{ movieData.popularity }}
           </span>
+          <span>
+            <div class="d-flex">
+              <strong>평점</strong>
+              <!-- {{ movieData.vote_average }} -->
+              <star-rating :rating="parseFloat( movieData.vote_average ) / 2" :read-only="true" :increment="0.01" :star-size="15"  :border-width="5" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+            </div>
+          </span>
+
         </div>
         <hr>
         <ul class="nav nav-tabs" id="Tab" role="tablist">
@@ -42,7 +46,7 @@
           </div>
           <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
             <div>
-              <div class="row justify-content-between my-2">
+              <div class="row justify-content-between align-items-center my-2">
                 <div class="col-3 fs-4"><strong>리뷰 목록</strong></div>
                 <div class="col-2">
                   <button
@@ -59,7 +63,7 @@
                     <th scope="col">#</th>
                     <th scope="col">작성자</th>
                     <th scope="col">제목</th>
-                    <th scope="col">평점</th>
+                    <th scope="col">영화 평점</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -80,7 +84,12 @@
                         {{ review.title }}
                       </router-link>
                     </td>
-                    <td>{{ review.rank }}</td>
+                    <td>
+                      <!-- {{ review.rank }} -->
+                      <div>
+                        <star-rating id="star-rate" :rating="parseFloat( review.rank ) / 2" :read-only="true" :increment="0.01" :star-size="20"  :border-width="3"  :rounded-corners="true" :show-rating="false"></star-rating>
+                      </div>
+                      </td>
                   </tr>
                 </tbody>
               </table>
@@ -99,6 +108,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import StarRating from 'vue-star-rating'
 
 export default {
   name: 'MovieDetail',
@@ -153,6 +163,9 @@ export default {
       return genreStr
     }
   },
+  components: {
+    StarRating,
+  }
 }
 </script>
 
@@ -163,4 +176,11 @@ export default {
   .nav-link {
     color: wheat;
   }
+  
+  #star-rate {
+    align-items: center;
+    justify-content: center;
+  }
+
+
 </style>

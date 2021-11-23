@@ -32,56 +32,60 @@
           </span>
         </span>
         <div class="card mt-3">
-          <div class="card-body text-start">
-            {{ post.content }}
+          <div class="card-body text-start review-content">
+            <!-- <pre-line> -->
+              {{ post.content}}
+            <!-- </pre-line> -->
+          </div>
+        </div>
+        <hr>
+        <div class="card">
+          <div class="align-middle fs-3">
+            Comments
+          </div>
+          <hr>
+          <div v-for="comment in comments" :key="comment.id">
+            <div class="d-flex flex-row p-3"> 
+              <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40" class="rounded-circle mr-3">
+              <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex flex-row align-items-center"> 
+                    <span class="mx-2 fs-5">{{ comment.userName }}</span> 
+                    <button 
+                      class="btn btn-danger btn-sm"
+                      v-if="comment.userName === userName"
+                      @click="deleteComment(comment.id)"
+                    >삭제
+                    </button>
+                  </div> 
+                  <small>{{ comment.timeStamp }}</small>
+                </div>
+                <p class="text-justify comment-text mb-0 ms-3 fs-6 mt-3">
+                  {{ comment.content }}
+                </p>
+                <hr>
+                <!-- <div class="d-flex flex-row user-feed"> <span class="wish"><i class="fa fa-heartbeat mr-2"></i>24</span> <span class="ml-3"><i class="fa fa-comments-o mr-2"></i>Reply</span> </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 d-flex flex-row align-items-center p-3 form-color"> 
+            <img src="https://i.imgur.com/zQZSWrt.jpg" width="50" class="rounded-circle me-2"> 
+            <input type="text" class="form-control" placeholder="Enter your comment..." v-model="commentForm.content" @keyup.enter="createComment">
+            <button class="btn btn-primary ms-2" @click="createComment">
+              <i class="bi bi-arrow-return-left" style="font-size: 1.5rem;"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- 댓글 목록 + 댓글 작성란 -->
+    <!-- 댓글 목록 + 댓글 작성란
     <div class="container mt-5 mb-5">
       <div class="row height d-flex justify-content-center align-items-center">
         <div class="col-10">
-          <div class="card">
-            <div class="align-middle fs-3">
-              Comments
-            </div>
-            <hr>
-            <div v-for="comment in comments" :key="comment.id">
-              <div class="d-flex flex-row p-3"> 
-                <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40" class="rounded-circle mr-3">
-                <div class="w-100">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex flex-row align-items-center"> 
-                      <span class="mx-2 fs-4">{{ comment.userName }}</span> 
-                      <button 
-                        class="btn btn-danger btn-sm"
-                        v-if="comment.userName === userName"
-                        @click="deleteComment(comment.id)"
-                      >삭제
-                      </button>
-                    </div> 
-                    <small>{{ comment.timeStamp }}</small>
-                  </div>
-                  <p class="text-justify comment-text mb-0 ms-3 fs-6">
-                    {{ comment.content }}
-                  </p>
-                  <hr>
-                  <!-- <div class="d-flex flex-row user-feed"> <span class="wish"><i class="fa fa-heartbeat mr-2"></i>24</span> <span class="ml-3"><i class="fa fa-comments-o mr-2"></i>Reply</span> </div> -->
-                </div>
-              </div>
-            </div>
-            <div class="mt-3 d-flex flex-row align-items-center p-3 form-color"> 
-              <img src="https://i.imgur.com/zQZSWrt.jpg" width="50" class="rounded-circle me-2"> 
-              <input type="text" class="form-control" placeholder="Enter your comment..." v-model="commentForm.content">
-              <button class="btn btn-primary ms-2" @click="createComment">
-                <i class="bi bi-arrow-return-left" style="font-size: 1.5rem;"></i>
-              </button>
-            </div>
-          </div>
+          
         </div>
       </div>
-    </div>
+    </div> -->
   </div>  
 </template>
 
@@ -179,7 +183,10 @@ export default {
   computed: {
     userName() {
       return this.$store.state.userName
-    }
+    },
+    lineBreak() {
+      return this.post.content.replace("\n", "<br />")
+	}
   }
 }
 </script>
