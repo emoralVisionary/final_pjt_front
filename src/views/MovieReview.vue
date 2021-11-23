@@ -12,12 +12,18 @@
         <hr>
         <div class="d-flex justify-content-around">
           <span>
-            <strong>장르</strong>
+            <strong>장르:</strong>
             {{ genres }}
           </span>
           <span>
             <strong>평점</strong>
             {{ movieData.vote_average }}
+            <div class="transformers-left">
+              평점 :
+            </div>
+            <div class="transformers-right">
+              <StarRating :rating="parseFloat(movieData.vote_average) / 2" :read-only="true" :increment="0.01"/>
+            </div>
           </span>
           <span>
             <strong>누적관객</strong>
@@ -56,10 +62,12 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
+import StarRating from 'vue-star-rating'
 
 export default {
   name: 'MovieReview',
   props: {
+    StarRating,
     review: Object,
     genres: String,
   },
