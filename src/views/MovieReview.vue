@@ -12,18 +12,12 @@
         <hr>
         <div class="d-flex justify-content-around">
           <span>
-            <strong>장르:</strong>
+            <strong>장르</strong>
             {{ genres }}
           </span>
           <span>
             <strong>평점</strong>
             {{ movieData.vote_average }}
-            <div class="transformers-left">
-              평점 :
-            </div>
-            <div class="transformers-right">
-              <StarRating :rating="parseFloat(movieData.vote_average) / 2" :read-only="true" :increment="0.01"/>
-            </div>
           </span>
           <span>
             <strong>누적관객</strong>
@@ -33,24 +27,41 @@
         <hr>
         <h2 class="text-start">영화 리뷰 작성</h2>
         <div>
-          <form class="form-floating">
-            <input type="text" class="form-control" id="title" style="height: 30px" v-model="reviewForm.title">
-            <label for="title" style="color: black" v-show="!reviewForm.title">리뷰 제목</label>
-          </form>
+          <!-- <form class="form-floating"> -->
+            <input 
+              type="text" 
+              class="form-control" 
+              id="title" 
+
+              v-model="reviewForm.title"
+              placeholder="리뷰 제목"
+            >
+            <!-- <label for="title" style="color: black" v-show="!reviewForm.title">리뷰 제목</label> -->
+          <!-- </form> -->
         </div>
-        <div class="form-floating my-2">
-          <textarea class="form-control" placeholder="리뷰를 작성하세요." id="content" style="height: 100px" v-model="reviewForm.content"></textarea>
-          <label for="content" style="color: black">리뷰 작성</label>
+        <div>
+          <textarea 
+            class="form-control" 
+            placeholder="리뷰를 작성하세요." 
+            id="content" 
+            style="height: 100px" 
+            v-model="reviewForm.content"
+          ></textarea>
+          <!-- <label for="content" style="color: black">리뷰 작성</label> -->
         </div>
-        <div class="d-flex justify-content-start">
+        <div class="d-flex justify-content-between">
+          <div class="rank">
+            <label for="rank" style="color: wheat">평점</label>
           <input 
             type="number" 
             id="rank"
-            class="rounded-pill"
+
             placeholder="평점"
+            style="height: 50px" 
             v-model.number="reviewForm.rank"
           >
-          <button class="mx-3 btn btn-primary" @click="index !== undefined ? updateReview() : createReview()">
+        </div>
+          <button class="mx-3 btn btn-primary mt-3" @click="index !== undefined ? updateReview() : createReview()">
             {{index !== undefined ? '리뷰 수정' : '리뷰 작성'}}
           </button>
         </div>
@@ -62,12 +73,11 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
-import StarRating from 'vue-star-rating'
+// import StarRating from 'vue-star-rating'
 
 export default {
   name: 'MovieReview',
   props: {
-    StarRating,
     review: Object,
     genres: String,
   },
@@ -120,10 +130,23 @@ export default {
     posterPath() {
       return `https://image.tmdb.org/t/p/w500/${this.movieData.poster_path}`
     },
-  }
+  },
+  //   components: {
+  //   StarRating,
+  // }
 }
 </script>
 
 <style>
+strong {
+  font-size: 130%;
+}
 
+.rank {
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  /* height: 50px */
+  font-size: 120%;
+}
 </style>

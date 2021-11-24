@@ -1,6 +1,10 @@
 <template>
   <div class="col-3">
-    <div class="card" @click="getDetail">
+    <div 
+      class="card" 
+      cursor: pointer 
+      @click="getDetail"
+    >
       <img :src="posterPath" alt="">
       <div class="card-body">
         <h5 class="card-title crop-text-2">{{ movie.title }}</h5>
