@@ -8,6 +8,9 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     movies: [],
+    latest: [],
+    rating: [],
+    weather: [],
     movieData: {},
     posts: [],
     token: '',
@@ -26,6 +29,12 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, jwtToken) {
       state.token = jwtToken
+    },
+    SET_RECOMMENDATIONS(state, recommendations) {
+      console.log(recommendations)
+      state.latest = recommendations[0]
+      state.rating = recommendations[1]
+      state.weather = recommendations[2]
     },
     LOGIN(state, username) {
       state.userName = username
@@ -70,6 +79,17 @@ export default new Vuex.Store({
       })
       .then(res => commit('LOAD_DETAIL', res.data))
       .catch(err => console.error(err))
+    },
+    GetRecommendations({ commit, state }) {
+      axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8000/movies/recommend/',
+        headers: state.token
+      })
+        .then((res) => {
+          commit('SET_RECOMMENDATIONS', res.data)
+        })
+        .catch((err) => console.error(err))
     }
   },
   modules: {

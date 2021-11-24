@@ -53,6 +53,7 @@ export default {
           localStorage.setItem('jwt', res.data.token)
           this.$store.dispatch('SetToken')
           this.$store.commit('LOGIN', this.credentials.username)
+          this.$store.dispatch('GetRecommendations')
 
 //           this.$emit('login')
 // >>>>>>> 0ebae2f79ce477037b2d08443580e060525710a5

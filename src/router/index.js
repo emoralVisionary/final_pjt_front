@@ -10,6 +10,9 @@ import ReviewDetail from '@/components/ReviewDetail.vue'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 import SearchMovies from '@/views/SearchMovies.vue'
+import LatestMovies from '../views/recommends/LatestMovies.vue'
+import HighRatingMovies from '../views/recommends/HighRatingMovies.vue'
+import WeatherBasedMovies from '../views/recommends/WeatherBasedMovies.vue'
 import Recommend from "@/views/Recommend";
 
 Vue.use(VueRouter)
@@ -19,6 +22,23 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    children: [
+      {
+        path: "latest",
+        name: "Latest",
+        component: LatestMovies,
+      },
+      {
+        path: "rating",
+        name: "Rating",
+        component: HighRatingMovies,
+      },
+      {
+        path: "weather",
+        name: "Weather",
+        component: WeatherBasedMovies,
+      },
+    ]
   },
   {
     path: "/:movieId",
@@ -64,7 +84,7 @@ const routes = [
     component: Login,
   },
   {
-    path: "search/:keyword",
+    path: "/search/:keyword",
     name: "searchMovies",
     component: SearchMovies,
   },
