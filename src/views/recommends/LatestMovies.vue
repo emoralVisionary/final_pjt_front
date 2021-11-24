@@ -7,7 +7,9 @@
         <button class="position-absolute top-50 start-0 btn btn-outline-light" style="z-index: 1;" @click="slideLeft">
           <i class="bi bi-chevron-double-left"></i>
         </button>
-        <button class="position-absolute top-50 end-0" style="z-index: 1;" @click="slideRight">오른쪽</button>
+        <button class="position-absolute top-50 end-0 btn btn-outline-light" style="z-index: 1;" @click="slideRight">
+          <i class="bi bi-chevron-double-right"></i>
+        </button>
         <div class="card-group row">
           <movie-card
             v-for="movie in movieSections[0]"
@@ -19,8 +21,12 @@
       </section>
       <section id="sections2" class="position-relative" v-show="sectionIndex === 1">
       <!-- <a href="#section3" class="arrow__btn">‹</a> -->
-        <button class="position-absolute top-50 start-0" style="z-index: 1;" @click="slideLeft">왼쪽</button>
-        <button class="position-absolute top-50 end-0" style="z-index: 1;" @click="slideRight">오른쪽</button>
+        <button class="position-absolute top-50 start-0 btn btn-outline-light" style="z-index: 1;" @click="slideLeft">
+          <i class="bi bi-chevron-double-left"></i>
+        </button>
+        <button class="position-absolute top-50 end-0 btn btn-outline-light" style="z-index: 1;" @click="slideRight">
+          <i class="bi bi-chevron-double-right"></i>
+        </button>
         <div class="card-group row">
           <movie-card
             v-for="movie in movieSections[1]"
@@ -32,8 +38,12 @@
       </section>
       <section id="sections3" class="position-relative" v-show="sectionIndex === 2">
       <!-- <a href="#section3" class="arrow__btn">‹</a> -->
-        <button class="position-absolute top-50 start-0" style="z-index: 1;" @click="slideLeft">왼쪽</button>
-        <button class="position-absolute top-50 end-0" style="z-index: 1;" @click="slideRight">오른쪽</button>
+        <button class="position-absolute top-50 start-0 btn btn-outline-light" style="z-index: 1;" @click="slideLeft">
+          <i class="bi bi-chevron-double-left"></i>
+        </button>
+        <button class="position-absolute top-50 end-0 btn btn-outline-light" style="z-index: 1;" @click="slideRight">
+          <i class="bi bi-chevron-double-right"></i>
+        </button>
         <div class="card-group row">
           <movie-card
             v-for="movie in movieSections[2]"
