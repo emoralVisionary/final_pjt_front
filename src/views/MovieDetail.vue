@@ -13,7 +13,7 @@
         <div class="d-flex justify-content-around">
           <span>
             <strong>장르: </strong>
-            {{ genres }}
+            {{ genreStr }}
           </span>
           <span>
             <strong>누적관객</strong>
@@ -114,6 +114,7 @@ export default {
   name: 'MovieDetail',
   data: function() {
     return {
+      genreStr: '',
       genreRef: {
         28: "액션",
         12: "모험",
@@ -142,6 +143,15 @@ export default {
       this.$router.push({ name: 'MovieReview', params: { movieId: this.movieData.id, genres: this.genres }})
     },
   },
+  mounted() {
+    this.movieData.genre_ids.forEach(id => {
+      if (!this.genreStr) {
+        this.genreStr = this.genreRef[`${id}`]
+      } else {
+        this.genreStr = this.genreStr + ', ' + this.genreRef[`${id}`]
+      }
+    })
+  },
   computed: {
     ...mapState(['movieData']),
     reviews() {
@@ -150,18 +160,18 @@ export default {
     posterPath() {
       return `https://image.tmdb.org/t/p/w500/${this.movieData.poster_path}`
     },
-    genres() {
-      let genreStr = ''
-      this.movieData.genre_ids.forEach(id => {
-        if (!genreStr) {
-          genreStr = this.genreRef[`${id}`]
-        } else {
-          genreStr = genreStr + ', ' + this.genreRef[`${id}`]
-        }
-      })
+    // genres() {
+    //   let genreStr = ''
+    //   this.movieData.genre_ids.forEach(id => {
+    //     if (!genreStr) {
+    //       genreStr = this.genreRef[`${id}`]
+    //     } else {
+    //       genreStr = genreStr + ', ' + this.genreRef[`${id}`]
+    //     }
+    //   })
 
-      return genreStr
-    }
+    //   return genreStr
+    // }
   },
   components: {
     StarRating,

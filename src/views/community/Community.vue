@@ -34,9 +34,13 @@
                 params: { postId: post.id, post: post, postDate: postDate[`${post.id}`] },
               }"
               class="text-reset"
+              v-if="isLogin"
             >
               {{ post.title }} 
             </router-link>
+            <span v-else>
+              {{ post.title }}
+            </span>
           </td>
           <td>{{ postDate[`${post.id}`] }}</td>
         </tr>
@@ -59,6 +63,7 @@ export default {
   methods: {
     getPostForm() {
       if (!this.$store.state.isLogin) {
+        alert("로그인 하셔야 이용 가능합니다.")
         this.$router.push({ name: 'Login' })
       } else {
         this.$router.push({ name: 'Post' })
@@ -79,7 +84,7 @@ export default {
     // })
   },
   computed: {
-    ...mapState(['posts', 'token']),
+    ...mapState(['posts', 'token', 'isLogin']),
   },
   watch: {
     posts(newPosts) {
