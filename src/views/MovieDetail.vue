@@ -96,19 +96,20 @@
             </div>
           </div>
           <div class="tab-pane fade" id="trailer" role="tabpanel" aria-labelledby="trailer-tab">
-            ...
+            <trailer :videoId="videoId"></trailer>
           </div>
         </div>
       </div> 
     </div>
     <hr>
-    <p>{{ movieData }}</p>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import StarRating from 'vue-star-rating'
+import axios from 'axios'
+import Trailer from '../components/Trailer.vue'
 
 export default {
   name: 'MovieDetail',
@@ -135,14 +136,31 @@ export default {
         53: "스릴러",
         10752: "전쟁",
         37: "서부"
-      }
+      },
+      videoId: '',
     }
   },
   methods: {
     getReviewForm() {
       this.$router.push({ name: 'MovieReview', params: { movieId: this.movieData.id, genres: this.genres }})
     },
-    
+    getTrailer() {
+      const API_KEY = "ec2c99dd97977ab60c1bfe60e130e0e4"
+      axios({
+        method: 'get',
+        url: `https://api.themoviedb.org/3/movie/${this.$route.params.movieId}/videos`,
+        params: {
+          api_key: API_KEY,
+        }
+      })
+        .then(res => {
+          res.data.results.forEach(video => {
+            if (video.type === "Trailer" && video.site === "YouTube") {
+              this.videoId = video.key
+            }
+          })
+        })
+    }
   },
   mounted() {
     this.movieData.genre_ids.forEach(id => {
@@ -152,6 +170,7 @@ export default {
         this.genreStr = this.genreStr + ', ' + this.genreRef[`${id}`]
       }
     })
+    this.getTrailer()
   },
   computed: {
     ...mapState(['movieData']),
@@ -175,7 +194,8 @@ export default {
     // }
   },
   components: {
-    StarRating,
+    StarRating, 
+    Trailer
   }
 }
 </script>
