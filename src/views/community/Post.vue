@@ -18,8 +18,8 @@
         <textarea 
           type="text" 
           id="content"
-          class="form-control"
-          style="height: 100px"
+          class="form-control mt-5"
+          style="height: 200px"
           v-model="PostForm.content"
           placeholder="내용을 작성하세요"
         ></textarea>

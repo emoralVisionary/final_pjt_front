@@ -41,10 +41,10 @@
         </div>
         <div>
           <textarea 
-            class="form-control" 
+            class="form-control mt-4" 
             placeholder="리뷰를 작성하세요." 
             id="content" 
-            style="height: 100px" 
+            style="height: 200px" 
             v-model="reviewForm.content"
           ></textarea>
           <!-- <label for="content" style="color: black">리뷰 작성</label> -->

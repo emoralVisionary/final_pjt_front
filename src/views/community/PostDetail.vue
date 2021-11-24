@@ -97,7 +97,7 @@ export default {
   name: 'PostDetail',
   props: {
     post: Object,
-    postDate: Object,
+    postDate: null,
   },
   data: function() {
     return {

@@ -141,6 +141,7 @@ export default {
     getReviewForm() {
       this.$router.push({ name: 'MovieReview', params: { movieId: this.movieData.id, genres: this.genres }})
     },
+    
   },
   computed: {
     ...mapState(['movieData']),
@@ -161,7 +162,7 @@ export default {
       })
 
       return genreStr
-    }
+    },
   },
   components: {
     StarRating,
