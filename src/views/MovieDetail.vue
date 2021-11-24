@@ -142,6 +142,7 @@ export default {
     getReviewForm() {
       this.$router.push({ name: 'MovieReview', params: { movieId: this.movieData.id, genres: this.genres }})
     },
+    
   },
   mounted() {
     this.movieData.genre_ids.forEach(id => {
