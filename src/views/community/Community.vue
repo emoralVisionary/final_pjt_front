@@ -38,9 +38,13 @@
             >
               {{ post.title }} 
             </router-link>
-            <span v-else>
-              {{ post.title }}
-            </span>
+            <router-link 
+              :to="{ name: 'Login' }"
+              class="text-reset"
+              v-else
+            >
+              {{ post.title }} 
+            </router-link>
           </td>
           <td>{{ postDate[`${post.id}`] }}</td>
         </tr>
